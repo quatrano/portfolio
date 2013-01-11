@@ -1,0 +1,657 @@
+/*!
+ * Copyright 2012 me
+ */
+#bar{
+	background: black;
+	height: 3px;
+}
+
+#body{
+z-index: -99999999;
+background-color: rgb(255,255,255);
+padding:0px !important;
+margin:0px !important;
+}
+
+.progress{
+width: 100px;
+height: 3px;
+margin: 0 auto;
+z-index: -1001;
+border: 1px solid black;
+position: relative;
+top: 20px;
+}
+
+#loading{
+width: 100%;
+height: 100%;
+background-color: white;
+z-index: 1000;
+position: absolute;
+top: -42px;
+padding-top: 100px;
+cursor: wait;
+}
+
+#landing{
+	top: 64px;
+}
+
+#layer1{
+	width: 100%;
+	position: fixed;
+	opacity: 1;
+	top:0px;
+	z-index: -999;
+	background-image: url('../img/debut_light.png');
+}
+
+.transparent{
+	opacity: 0;
+}
+
+.centered{
+text-align: center;
+}
+
+.illusion{
+	background-image: url('../img/pulsar.gif');
+	background-repeat: no-repeat;
+	height: 137px;
+	width: 137px;
+	margin: 0 auto;
+	margin-top: 80px;
+	border: none;
+	background-color: transparent;
+}
+
+.container{
+position: relative;
+width: 980px;
+margin: 0 auto;
+margin-top: 0px;
+overflow: visible;
+}
+
+
+
+
+#article{
+width: 980px;
+height: 900px;
+position: relative;
+top:0;
+left:0;
+}
+
+.thumb-container{
+	display: inline-block;
+	margin: 11px;
+}
+
+.thumbnail{
+position: relative;
+display: inline-block;
+border: none;
+box-shadow: none;
+padding: 0px;
+}
+
+label{
+z-index: 1;
+width: 100%;
+height: 80px;
+position: absolute;
+top: 0px;
+left: 0px;
+border-radius: 0px;
+border: none;
+margin: 0px;
+background-color: rgba(0, 0, 0, .3);
+color: white;
+cursor: pointer;
+}
+
+.type{
+font-size: 20px;
+font-family:'Droid Sans';
+line-height: 18px;
+font-weight: 200;
+letter-spacing: 0px;
+display: inline-block;
+margin-left: 20px;
+margin-top: 20px;
+}
+.num{
+font-size: 20px;
+font-family:'Droid Sans';
+line-height: 18px;
+font-weight: 100;
+letter-spacing: 2px;
+display: inline-block;
+}
+.title{
+font-size: 13px;
+font-family:'Droid Sans';
+line-height: 20px;
+font-weight: 100;
+letter-spacing: 2px;
+display: inline-block;
+margin-left: 20px;
+}
+
+header{
+z-index: 1;
+width: 960px;
+height: 29px;
+position: absolute;
+top: 0px;
+left: 0px;
+padding-left: 20px;
+padding-top: 8px;
+border-radius: 0px;
+border: none;
+background-image: url('../img/debut_dark.png');
+color: white;
+}
+
+header .type{
+font-size: 11px;
+font-family: 'Droid Sans';
+font-weight: 800;
+letter-spacing: 1px;
+margin-right: 8px;
+display: inline-block;
+text-transform: uppercase;
+margin-top: 0px;
+margin-left: 0px;
+}
+header .num{
+font-size: 11px;
+font-family: 'Droid Sans';
+font-weight: 800;
+letter-spacing: 1px;
+margin-right: 13px;
+display: inline-block;
+text-transform: uppercase;
+}
+header .title{
+font-size: 11px;
+font-family: 'Droid serif';
+font-weight: 100;
+letter-spacing: 1px;
+margin-right: 3px;
+display: inline-block;
+text-transform: capitalize;
+}
+
+.label.selected{
+width: 908px;
+height: 40px;
+position: absolute;
+top: -58px;
+left: -36px;
+border-radius: 0px;
+border: none;
+margin: 0px;
+margin-left: 80px;
+padding: 10px;
+box-shadow: 0px,0px,0px, inner;
+background-color: rgba(0,0,0,.8);
+display: block !important;
+}
+
+.thumb.selected{
+position: absolute;
+margin-left: -8px;
+width: 10px;
+height: 10px;
+border-radius: 0px;
+border: 8px solid black;
+height: 36px;
+width: 36px;
+top: -67px;
+box-shadow: none;
+}
+
+.thumb{
+width: 300px;
+height: 300px;
+display: inline-block;
+position: relative;
+background-color: rgba(100,100,100,.9);
+background-repeat:no-repeat !important;
+}
+
+#thumbnail1{
+	height: 300px;
+	width: 300px;
+}
+#thumb1{
+	background:url(../content/1/thumb.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+#thumb1.over{
+	background:url(../content/1/thumbover.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+
+#thumbnail2{
+	height: 139px;
+	width: 622px;
+}
+#thumb2{
+	background:url(../content/2/n.png) 0px -60px;
+	background-repeat:no-repeat;
+	height: inherit;
+	width: inherit;
+}
+#thumb2.over{
+	background:url(../content/2/no.png) 0px -60px;
+	background-repeat:no-repeat;
+}
+
+#thumbnail3{
+	width: 300px;
+	height: 139px;
+}
+#thumb3{
+	background:url(../content/3/n.png) 0px 0px;
+	background-repeat:no-repeat;
+	height: inherit;
+	width: inherit;
+}
+#thumb3.over{
+	background:url(../content/3/no.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+
+#thumbnail4{
+	width: 139px;
+	height: 139px;
+}
+#thumb4{
+	background:url(../content/4/n.png) 0px 0px;
+	background-repeat:no-repeat;
+	height: inherit;
+	width: inherit;
+}
+#thumb4.over{
+	background:url(../content/4/no.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+
+#thumbnail5{
+	width: 300px;
+	height: 300px;
+}
+#thumb5{
+	background:url(../content/5/n.png) 0px 0px;
+	background-repeat:no-repeat;
+	height: inherit;
+	width: inherit;
+}
+#thumb5.over{
+	background:url(../content/5/no.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+
+#thumbnail6{
+	width: 300px;
+	height: 450px;
+}
+#thumb6{
+	background:url(../content/6/n.png) 0px 0px;
+	background-repeat:no-repeat;
+	height: inherit;
+	width: inherit;
+}
+#thumb6.over{
+	background:url(../content/6/no.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+
+#thumbnail7{
+	width: 300px;
+	height: 300px;
+}
+#thumb7{
+	background:url(../content/7/n.png) 0px 0px;
+	background-repeat:no-repeat;
+	height: inherit;
+	width: inherit;
+}
+#thumb7.over{
+	background:url(../content/7/no2.png) 0px 0px;
+	background-repeat:no-repeat;
+}
+
+#line{
+	height: 2px;
+	width: 980px;
+	margin: 0 auto;
+	z-index: 101;
+	background-color: rgba(0,0,0,.9);
+	position: relative;
+	top: 0px;
+}
+
+.icon.a{
+	height: 40px;
+	width: 40px;
+	background-repeat: no-repeat;
+	position: relative;
+	top: -1px;
+	float: left;
+}
+
+.nav-container{
+	width: 980px;
+	height: 55px;
+	margin: 0 auto;
+	position: relative;
+	left: 0px;
+}
+
+.navbar{
+	height: 57px;
+	width: 100%;
+	z-index: 100;
+}
+
+.navbar.bumped{
+	position: absolute;
+	top:52px;
+	left: 0;
+}
+
+.navbar-inner{
+	padding: 0px !important;
+	background-image: none;
+	background-color: transparent;
+	box-shadow: none !important;
+	border: none;
+	height: 20px;
+	border-radius: 0px;
+	float: none;
+	width: 100%;
+	margin: 0 auto;
+}
+
+
+
+#navall.active{
+	background:url('../img/nav/allSelected.png') 0px 12px;
+}
+#navall{
+	background:url('../img/nav/all.png') 0px 12px;
+}
+#navconceptual.active{
+	background:url('../img/nav/conceptualSelected.png') 0px 12px;
+}
+#navconceptual{
+	background:url('../img/nav/conceptual.png') 0px 12px;
+}
+#navdigital.active{
+	background:url('../img/nav/digitalSelected.png') 0px 12px;
+}
+#navdigital{
+	background:url('../img/nav/digital.png') 0px 12px;
+}
+#navphysical.active{
+	background:url('../img/nav/physicalSelected.png') 0px 12px;
+}
+#navphysical{
+	background:url('../img/nav/physical.png') 0px 12px;
+}
+
+
+.navbar.floating{
+	position: fixed;
+	top: 0px;
+}
+
+.navbar.top{
+	position: absolute;
+	top: 37px;
+}
+
+.nav{
+padding-left: 11px;
+margin: 0 auto;
+width: 612px;
+position: absolute;
+}
+
+.nav-background{
+	background-image: url('../img/debut_light.png');
+	opacity: 0.8;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+
+.nav li{
+	background-repeat: no-repeat !important;
+	display: inline-block;
+	position: relative;
+	right: 0px;
+	height: 38px;
+	padding-left: 40px;
+	padding-top: 17px;
+}
+
+.nav a{
+	width: 150px;
+	height: 55px;
+	color: transparent !important;
+	position: relative;
+	display: inline-block;
+	font-size: 11px;
+	font-family:'Droid Sans';
+	font-weight: 800;
+	line-height: 24px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.nav a:hover{
+	color: black !important;
+}
+
+.nav li.active{
+	color: black !important;
+}
+
+.article{
+	width: 980px;
+	background-color: rgba(255, 255, 255, 0.5);
+	position: absolute;
+	top: 0px;
+}
+
+.column{
+	display: inline-block;
+	position: absolute;
+	overflow: hidden;
+}
+.behind{
+	opacity: 0 !important;
+}
+
+p{
+	font-family: 'Droid Serif' !important;
+	display: inline-block;
+	position: relative;
+	margin: 0px;
+	padding: 30px;
+	padding-bottom: 0px;
+	background: white;
+	line-height: 21px;
+	font-size: 14px;
+}
+p.subtitle{
+	padding-top: 5px;
+}
+.box{
+	border: 2px solid black;
+	padding: 15px 0px 20px;
+	margin-left: 30px;
+	display: inline-block;
+	margin: 0px 30px;
+}
+
+.blockQuote{
+	color:rgb(100,100,100);
+}
+
+h1 {
+padding: 30px 30px 0px;
+margin: 0px;
+font-family: 'Droid Serif';
+font-size: 25px;
+}
+
+img{
+	padding: 30px;
+	padding-bottom: 0px;
+	padding-right: 0px;
+	margin: 0px;
+	background: white;
+	display: inline-block;
+}
+
+.small{
+	width: 350px;
+}
+.large{
+	width: 640px;
+}
+.column.top{
+	position: absolute;
+	top: 0px;
+}
+.column.bottom{
+	position: absolute;
+	bottom: 0px;
+}
+.column.floating{
+	position: fixed;
+	/*57 = height of the nav*/
+	top: 57px;
+}
+
+
+.left{
+	margin-left:0px;
+}
+.right{
+	margin-left:340px;
+}
+
+#grid{
+overflow: visible;
+width; 1200px;
+padding-top: 0px;
+}
+
+.one {
+margin: 0;
+  background-color: rgb(220,220,255);
+  height: 50px;
+}
+
+.row{
+margin: 0px;
+width: 980px;
+position: absolute;
+display: block;
+background: rgb(255,255,255);
+}
+
+.scrollTop{
+	width: 100%;
+	background-color: white;
+	text-align: center;
+	padding: 30px 0px;
+	font-size: 11px;
+	font-family: 'Droid Sans';
+	font-weight: 800;
+	line-height: 24px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.artTitle{
+	font-size: 20px;
+	line-height: 50px;
+}
+.subTitle{
+	font-size: 15px;
+	line-height: 30px;
+	position: relative;
+	top: -20px;
+}
+
+/**** Isotope Filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+      -ms-transition-duration: 0s;
+       -o-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+/**** Isotope filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
