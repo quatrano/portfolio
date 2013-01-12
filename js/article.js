@@ -143,13 +143,20 @@ Article.prototype.thumbPaths = function(){
 	return imgPaths;
 }
 
-Article.prototype.thumbHtml = function(){
+Article.prototype.writeThumbHtml = function(){
 	var id = this.id;
 	var num = this.thumbnail.num;
 	var ty = this.thumbnail.type;
 	var ti = this.thumbnail.title;
-	var thumbnailHtml = '<a href="#' + ty.toLowerCase() + '/' + num + '" class="thumb" id="thumb' + id + '"><label style="display:none;"><div class="type">'+ ty + '</div><div class="num">'+ num + '</div><br><div class="title">'+ ti + '</div></label></a>';
-	return thumbnailHtml;
+	var height = 'h' + this.thumbnail.height;
+	var width = 'w' + this.thumbnail.width;
+	var nUrl = 'url('+this.thumbnail.n.url+')';
+	var noUrl = 'url('+this.thumbnail.no.url+')';
+	var thumbnailContainer = '<div class="thumb-container ' + ty + ' ' + height + ' ' +  width + '" id="thumbnail' + id + '"></div>';
+		$('#thumbSpacer').after(thumbnailContainer);
+	$('#thumbnail' + id).html('<a href="#' + ty.toLowerCase() + '/' + num + '" class="thumb" id="thumb' + id + '" + style="background:' + nUrl + ';"><label style="display:none;"><div class="type">'+ ty + '</div><div class="num">'+ num + '</div><br><div class="title">'+ ti + '</div></label></a>');
+	var imgArray = [nUrl, noUrl];
+	addBehavior('#thumb'+id, imgArray);
 }
 
 Article.prototype.writeHtml = function(){

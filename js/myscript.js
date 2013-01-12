@@ -52,6 +52,7 @@ $(window).bind('load',function(){
 	myPortfolio.downloadArticles(function continueLoading(){
 		$(window).trigger('hashchange');
 		$(window).trigger('resize');
+
 	});
 });
 
@@ -70,16 +71,22 @@ function preload(arrayOfImages) {
     });
 	return true;}
 
-function addBehavior(thumbId){
-	$(thumbId).mouseenter(function(){
-		$(thumbId).addClass('over');
-		if ($(thumbId + " label").queue("fx").length < 3){
-			$(thumbId + " label").slideDown();	
+function addBehavior(thumbSelector, imgArray){
+	$(thumbSelector).mouseenter(function(){
+		if(imgArray[1]){
+			$(thumbSelector).css('background',imgArray[1])
+		}
+		$(thumbSelector).addClass('over');
+		if ($(thumbSelector + " label").queue("fx").length < 3){
+			$(thumbSelector + " label").slideDown();	
 		}
 	});
-	$(thumbId).mouseleave(function(){
-		$(thumbId).removeClass('over');
-			$(thumbId + " label").stop();
-			$(thumbId + " label").slideUp();
+	$(thumbSelector).mouseleave(function(){
+		if(imgArray[0]){
+			$(thumbSelector).css('background',imgArray[0])
+		}
+		$(thumbSelector).removeClass('over');
+		$(thumbSelector + " label").stop();
+		$(thumbSelector + " label").slideUp();
 	});
 }

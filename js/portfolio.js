@@ -176,19 +176,16 @@ Portfolio.prototype.showArticle = function(articleId){
 }
 
 Portfolio.prototype.loadThumbnails = function(done){
-	//show thumbnail loading page (full screen load)
-		//for now it starts shown
-	//preload images
-	var articles = this.articles;
+	var theseArticles = this.articles;
 	preload(this.getLandingImages());
-	//(hidden) write html
+	//tell each article to instert it's own html
 	for (var i=this.articleCount; i>0; i--){
-		var type = articles[i].thumbnail.type;
-		var thumbnailContainer = '<div class="thumb-container ' + type + '" id="thumbnail' + i + '"></div>';
-		$('#thumbSpacer').after(thumbnailContainer);
-		$('#thumbnail' + i).html(articles[i].thumbHtml());
-		addBehavior('#thumb'+i);
+		var thisArticle = theseArticles[i]
+		thisArticle.writeThumbHtml();
 	}
+	//add the the footer which is actually a thumb containter too
+
+
 	//record that the thumbs have been loaded
 	this.thumbsLoaded = true;
 	$('#landing').isotope({
@@ -200,20 +197,23 @@ Portfolio.prototype.loadThumbnails = function(done){
     		columnWidth: 161
   		}
   	});
+  	console.log($('#thumbnail' + i));
+  	//$('#thumbnail' + i).get().style.width = width;
+	//$('#thumbnail' + i).get().style.height = height;
 	done();
 }
 
 Portfolio.prototype.getLandingImages = function(){
 	var articles = this.articles;
 	var imgPaths = new Array();
-	imgPaths[0] = '../bootstrap/img/nav/all.png';
-	imgPaths[1] = '../bootstrap/img/nav/allOver.png';
-	imgPaths[2] = '../bootstrap/img/nav/conceptual.png';
-	imgPaths[3] = '../bootstrap/img/nav/conceptualOver.png';
-	imgPaths[4] = '../bootstrap/img/nav/digital.png';
-	imgPaths[5] = '../bootstrap/img/nav/digitalOver.png';
-	imgPaths[6] = '../bootstrap/img/nav/physical.png';
-	imgPaths[7] = '../bootstrap/img/nav/physicalOver.png';
+	imgPaths[0] = '../img/nav/all.png';
+	imgPaths[1] = '../img/nav/allOver.png';
+	imgPaths[2] = '../img/nav/conceptual.png';
+	imgPaths[3] = '../img/nav/conceptualOver.png';
+	imgPaths[4] = '../img/nav/digital.png';
+	imgPaths[5] = '../img/nav/digitalOver.png';
+	imgPaths[6] = '../img/nav/physical.png';
+	imgPaths[7] = '../img/nav/physicalOver.png';
 	for (var i=1, c=this.articleCount; i<=c; i++){
 		var tmpPaths = new Array();
 		tmpPaths = articles[i].thumbPaths();
