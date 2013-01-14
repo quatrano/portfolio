@@ -1,7 +1,7 @@
 //this script contains the procedure for a session
 
 //create a new portfolio: Portfolio(<article count>);
-var myPortfolio = new Portfolio(7);
+var myPortfolio = new Portfolio(8);
 //set the current location to the loading page
 var currentLocation = -1;
 
@@ -25,7 +25,7 @@ $(window).bind('load',function(){
 			}
 			else { //there is a hash. Check if its valid.  If so, send them there.
 				var hashIsValid = false;
-				var validHashes = ['all', 'conceptual', 'digital', 'physical'];
+				var validHashes = ['all', 'conceptual', 'digital', 'physical', 'contact'];
 				for (var i=0; i<validHashes.length; i++){
 					if (url[0] == validHashes[i]){hashIsValid = true};
 				}

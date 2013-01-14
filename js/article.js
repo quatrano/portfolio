@@ -2,6 +2,7 @@
 //contains an array of rows and some functions
 //important public functions:
 	//fullyLoad(); will download images, write the html, calculate the layout
+	//fullyloaded; is a boolean that stores whether the article is fully loaded
 	//show(); will show an article
 	//thumbPaths(); will return the paths to all thumbs for this article
 	//thumbHtml(); will spit out html for the thumbnail for this article
@@ -72,7 +73,6 @@ Article.prototype.calculateLayout = function(){
 		$('#row' + i).attr('style',newTop)
 		var floatSelector = '#article' + n + ' #row' + i + ' .floater';
 		var theseFloaters = $(floatSelector);
-		console.log('there are: ' + theseFloaters.length + ' floaters');
 		for (var j=0; j<theseFloaters.length; j++){
 			//j iterates though all the floaters in this row
 			var thisFloater = theseFloaters[j];
@@ -129,7 +129,7 @@ Article.prototype.floatFloaters = function(boolean){
 		for (var i=0; i<floaters.length; i++){
 			var thisFloater = floaters[i];
 			$(thisFloater).attr('id', '');
-			console.log(scrollMonitors[i].activate(false));
+			scrollMonitors[i].activate(false);
 		}
 		//deactivate the scrollmonitor for the nav
 		scrollMonitors[scrollMonitors.length-1].activate(false);
@@ -222,7 +222,6 @@ Article.prototype.imgPaths = function(){
 					var imgCount = images.length;
 					for (var k=0; k<imgCount; k++){
 						imgPath.push($(images[k]).attr('src'));
-						console.log(imgPath[imgPath.length-1]);
 					}
 						
 				}

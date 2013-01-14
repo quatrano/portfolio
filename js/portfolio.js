@@ -1,11 +1,9 @@
 //this is the portfolio object
 //contains an array of articles and some functions
 //important public functions:
+	//Portfolio(n); will create a portfolio with n articles
 	//downloadArticles(); will download JSON and create objects for articles
-	//showThumbnails(type); will show the landing page with thumbnails of the specified type 
-		// loadThumbnails(); writes the HTML for the thumbnails and preloads the images
-		// getLandingImages(); returns an array of images on the landing page
-	//showArticle(articleId); will show the article with [type, id]
+	//updateView(from, to); will page article 'from' and [load and] show page 'to'
 
 var Portfolio = function(n){
 	var documentHeight = window.innerHeight;
@@ -16,10 +14,6 @@ var Portfolio = function(n){
 	this.thumbsLoaded = false;
 	this.visitMonitor = new VisitMonitor();
 	this.currentView = 0;
-	this.example = example;
-		function example(){
-		console.log('example...');
-		}
 }
 
 Portfolio.prototype.updateView = function updateView(origin, destination){
@@ -49,9 +43,9 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 				typeID = 0;
 			}
 		} else {
-		typeID = -1;
+			typeID = -1;
 		}
-			return typeID;
+		return typeID;
 	}
 
 	var originID = getType(origin);
@@ -70,7 +64,6 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 	if ( !destinationLoaded ){
 		if (destinationID == 0){ //going to the landing page
 			thisPortfolio.loadThumbnails(function() {
-				console.log('finished loading thumbs');
 				thisPortfolio.visitMonitor.logVisit(destinationID);
 				thisPortfolio.hideOrigin(originID);
 				thisPortfolio.showDestination(destinationID, destination);
@@ -83,7 +76,6 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 			});
 		}
 	} else if ( destinationID == originID && destinationID == 0){ //staying at landing page
-		console.log('staying on landing page');
 		thisPortfolio.showThumbnails(destination[0]);
 	} else { //hide the origin and show the destination immediately
 		thisPortfolio.visitMonitor.logVisit(destinationID);
@@ -108,20 +100,34 @@ Portfolio.prototype.showDestination = function showDestination(destinationID, de
 	var thisPortfolio = this;
 	if (destinationID == 0){ //going to the landing page
 		if (typeof destination == 'object'){
+			var dest = '#'+(destination[0]);
+			console.log('showing ' + dest);
+			_gaq.push(['_trackEvent','page', dest]);
 			thisPortfolio.showThumbnails(destination[0]);
 		} else {
+			_gaq.push(['_trackEvent','page', '#all']);
+			console.log('showing ' + '#all');
 			thisPortfolio.showThumbnails('all');
 		}
 	} else { //going to an article
+		if(destination[0] && destination[1]){
+			var dest = '#'+(destination[0])+'/'+destination[1]
+			console.log('showing ' + dest);
+			_gaq.push(['_trackEvent','page', dest]);
+		}else{
+			var dest = destinationID;
+			console.log('showing ' + dest);
+			_gaq.push(['_trackEvent','page', dest]);
+		}
 		thisPortfolio.showArticle(destinationID);
 	}
 }
 
 Portfolio.prototype.downloadArticles = function downloadArticles(done){
-	console.log('downloading articles');
 	var articles = this.articles;
 	var remainingArticles = this.articleCount;
-	for(var i=1, c=this.articleCount; i<=c; i++){
+	var articleCount = this.articleCount;
+	for(var i=1, c=articleCount; i<=c; i++){
 		articleUrl = './content/' + i + '/' + i + '.json';
 		var jqxhr = $.getJSON(articleUrl, function(data) {
 			articles[data.id] = new Article(data);
@@ -133,6 +139,7 @@ Portfolio.prototype.downloadArticles = function downloadArticles(done){
 	var checkprogress = window.setInterval(function(){
 		if(remainingArticles == 0){
 			window.clearInterval(checkprogress);
+			_gaq.push(['_trackEvent','checkpoint', 'ajax_success', articleCount]);
 			done();
 		}
 	},900);
@@ -156,7 +163,6 @@ Portfolio.prototype.hideLoading = function(){
 }
 
 Portfolio.prototype.showThumbnails = function(type){
-	console.log('showThumbnails');
 	var articles = this.articles;
 	$('.navbar').fadeIn();
 	$('#landing').fadeIn();
@@ -164,14 +170,13 @@ Portfolio.prototype.showThumbnails = function(type){
 		$('#landing').isotope({ filter: '*'});
 	}
 	else {
-		var selector = '.' + type;
+		var selector = '.contact, .' + type;
 		$('#landing').isotope({ filter: selector});
 	}
 }
 
 Portfolio.prototype.showArticle = function(articleId){
 	var thisArticle = this.articles[articleId];
-	console.log(articleId);
 	thisArticle.showArticle();
 }
 
@@ -197,23 +202,20 @@ Portfolio.prototype.loadThumbnails = function(done){
     		columnWidth: 161
   		}
   	});
-  	console.log($('#thumbnail' + i));
-  	//$('#thumbnail' + i).get().style.width = width;
-	//$('#thumbnail' + i).get().style.height = height;
 	done();
 }
 
 Portfolio.prototype.getLandingImages = function(){
 	var articles = this.articles;
 	var imgPaths = new Array();
-	imgPaths[0] = '../img/nav/all.png';
-	imgPaths[1] = '../img/nav/allOver.png';
-	imgPaths[2] = '../img/nav/conceptual.png';
-	imgPaths[3] = '../img/nav/conceptualOver.png';
-	imgPaths[4] = '../img/nav/digital.png';
-	imgPaths[5] = '../img/nav/digitalOver.png';
-	imgPaths[6] = '../img/nav/physical.png';
-	imgPaths[7] = '../img/nav/physicalOver.png';
+	imgPaths[0] = './img/nav/all.png';
+	imgPaths[1] = './img/nav/allOver.png';
+	imgPaths[2] = './img/nav/conceptual.png';
+	imgPaths[3] = './img/nav/conceptualOver.png';
+	imgPaths[4] = './img/nav/digital.png';
+	imgPaths[5] = './img/nav/digitalOver.png';
+	imgPaths[6] = './img/nav/physical.png';
+	imgPaths[7] = './img/nav/physicalOver.png';
 	for (var i=1, c=this.articleCount; i<=c; i++){
 		var tmpPaths = new Array();
 		tmpPaths = articles[i].thumbPaths();
