@@ -20,7 +20,7 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 	var thisPortfolio = this;
 	var theseArticles = this.articles;
 	//simplify the origin and destination
-		//loading: -1
+		//landing: -1
 		//thumbnails: 0
 		//article: 1, 2, 3... etc.
 	function getType(location){
@@ -39,7 +39,7 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 						}
 					}
 				}
-			} else { //is the landing page
+			} else { //is the thumbnail page
 				typeID = 0;
 			}
 		} else {
@@ -53,7 +53,7 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 	
 	//check whether the destination is loaded or not
 	var destinationLoaded = false;
-	if ( destinationID == 0 ){ //destination = landing page
+	if ( destinationID == 0 ){ //destination = thumbnail page
 		destinationLoaded = thisPortfolio.thumbsLoaded;
 	} else { //destination = an article
 		destinationLoaded = thisPortfolio.articles[destinationID].fullyLoaded;
@@ -62,7 +62,7 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 	//if the destination isn't loaded, load the destination
 		//when you're done, hide the origin and show the destination
 	if ( !destinationLoaded ){
-		if (destinationID == 0){ //going to the landing page
+		if (destinationID == 0){ //going to the thumbnails page
 			thisPortfolio.loadThumbnails(function() {
 				thisPortfolio.visitMonitor.logVisit(destinationID);
 				thisPortfolio.hideOrigin(originID);
@@ -75,7 +75,7 @@ Portfolio.prototype.updateView = function updateView(origin, destination){
 				thisPortfolio.showDestination(destinationID, destination);
 			});
 		}
-	} else if ( destinationID == originID && destinationID == 0){ //staying at landing page
+	} else if ( destinationID == originID && destinationID == 0){ //staying at thumbnails page
 		thisPortfolio.showThumbnails(destination[0]);
 	} else { //hide the origin and show the destination immediately
 		thisPortfolio.visitMonitor.logVisit(destinationID);
@@ -87,25 +87,28 @@ return destinationID;
 
 Portfolio.prototype.hideOrigin = function hideOrigin(originID){
 	var thisPortfolio = this;
-		if (originID == -1){ //coming from the loading page
-			thisPortfolio.hideLoading();
-		} else if (originID == 0){ //coming from the landing page
+		if (originID == -1){ //coming from the landing page
+			$('body').removeClass('landing');
+			thisPortfolio.hideLanding();
+		} else if (originID == 0){ //coming from the thumbnails page
+			$('body').removeClass('thumbnails');
 			thisPortfolio.hideThumbnails();
 		} else { //coming from an article
+			$('body').removeClass('article');
 			thisPortfolio.hideArticle(originID);
 		}
 	}
 
 Portfolio.prototype.showDestination = function showDestination(destinationID, destination){
 	var thisPortfolio = this;
-	if (destinationID == 0){ //going to the landing page
+	if (destinationID == 0){ //going to the thumbnails page
 		if (typeof destination == 'object'){
 			var dest = '#'+(destination[0]);
 			console.log('showing ' + dest);
-			_gaq.push(['_trackEvent','page', dest]);
+			_gaq.push(['_trackPageview', dest]);
 			thisPortfolio.showThumbnails(destination[0]);
 		} else {
-			_gaq.push(['_trackEvent','page', '#all']);
+			_gaq.push(['_trackPageview', '#all']);
 			console.log('showing ' + '#all');
 			thisPortfolio.showThumbnails('all');
 		}
@@ -113,11 +116,11 @@ Portfolio.prototype.showDestination = function showDestination(destinationID, de
 		if(destination[0] && destination[1]){
 			var dest = '#'+(destination[0])+'/'+destination[1]
 			console.log('showing ' + dest);
-			_gaq.push(['_trackEvent','page', dest]);
+			_gaq.push(['_trackPageview', dest]);
 		}else{
 			var dest = destinationID;
 			console.log('showing ' + dest);
-			_gaq.push(['_trackEvent','page', dest]);
+			_gaq.push(['_trackPageview', dest]);
 		}
 		thisPortfolio.showArticle(destinationID);
 	}
@@ -139,7 +142,7 @@ Portfolio.prototype.downloadArticles = function downloadArticles(done){
 	var checkprogress = window.setInterval(function(){
 		if(remainingArticles == 0){
 			window.clearInterval(checkprogress);
-			_gaq.push(['_trackEvent','checkpoint', 'ajax_success', articleCount]);
+			_gaq.push(['_trackEvent','ajax_success']);
 			done();
 		}
 	},900);
@@ -153,25 +156,25 @@ Portfolio.prototype.hideArticle = function(articleId){
 }
 
 Portfolio.prototype.hideThumbnails = function(){
-	$('#landing').fadeOut();
+	$('#thumbnails').fadeOut();
 }
 
-Portfolio.prototype.hideLoading = function(){
-	$('#loading').fadeOut();
-	$('#loading').addClass('transparent');
+Portfolio.prototype.hideLanding = function(){
+	$('#landing').fadeOut();
+	$('#landing').addClass('transparent');
 	$('.navbar').show();
 }
 
 Portfolio.prototype.showThumbnails = function(type){
 	var articles = this.articles;
 	$('.navbar').fadeIn();
-	$('#landing').fadeIn();
+	$('#thumbnails').fadeIn();
 	if (type=='all' || type==''){
-		$('#landing').isotope({ filter: '*'});
+		$('#thumbnails').isotope({ filter: '*'});
 	}
 	else {
 		var selector = '.contact, .' + type;
-		$('#landing').isotope({ filter: selector});
+		$('#thumbnails').isotope({ filter: selector});
 	}
 }
 
@@ -182,7 +185,7 @@ Portfolio.prototype.showArticle = function(articleId){
 
 Portfolio.prototype.loadThumbnails = function(done){
 	var theseArticles = this.articles;
-	preload(this.getLandingImages());
+	preload(this.getThumbnailImages());
 	//tell each article to instert it's own html
 	for (var i=this.articleCount; i>0; i--){
 		var thisArticle = theseArticles[i]
@@ -193,11 +196,11 @@ Portfolio.prototype.loadThumbnails = function(done){
 
 	//record that the thumbs have been loaded
 	this.thumbsLoaded = true;
-	$('#landing').isotope({
+	$('#thumbnails').isotope({
 		itemSelector : '.thumb-container',
 		layoutMode : 'masonry'
 	});
-	$('#landing').isotope({
+	$('#thumbnails').isotope({
 		masonry: {
     		columnWidth: 161
   		}
@@ -205,7 +208,7 @@ Portfolio.prototype.loadThumbnails = function(done){
 	done();
 }
 
-Portfolio.prototype.getLandingImages = function(){
+Portfolio.prototype.getThumbnailImages = function(){
 	var articles = this.articles;
 	var imgPaths = new Array();
 	imgPaths[0] = './img/nav/all.png';

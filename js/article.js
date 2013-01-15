@@ -98,7 +98,7 @@ Article.prototype.calculateLayout = function(){
 }
 
 Article.prototype.showArticle = function(){
-	$('#loading').hide();
+	$('#landing').hide();
 	var n = this.id;
 	var headerHeight = $('header').outerHeight();
 	$("html, body").animate({ scrollTop: 0 });

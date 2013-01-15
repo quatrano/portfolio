@@ -19,7 +19,7 @@ $(window).bind('load',function(){
 			window.location.href = '#all';
 			myPortfolio.updateView(currentLocation, 0);
 		} else {
-			if (url[0] == ''){ //no hash on the URL. Take them to the home page from wherever they are
+			if (url[0] == ''){ //no hash on the URL. Take them to the thumbnails from wherever they are
 				document.location.hash = "all";
 				currentLocation = myPortfolio.updateView(currentLocation, 0);
 			}
@@ -49,10 +49,12 @@ $(window).bind('load',function(){
 	});
 
 	//download the articles
-	myPortfolio.downloadArticles(function continueLoading(){
-		$(window).trigger('hashchange');
+	myPortfolio.downloadArticles(function (){
+		$('#enter').bind( 'click', function(){
+			$(window).trigger('hashchange');
+		});
+		$('.loading').removeClass('loading');
 		$(window).trigger('resize');
-
 	});
 });
 
